@@ -4,15 +4,22 @@
 char choice;
 char press;
 bool bState = false;
+char kol = 'F';
+int kolb;
+
+void menu();
+void activate();
+char chopress();
+char cho();
+char switched();
 
 void menu(bool bState) { // Console INFO
 	system("cls");
-	std::cout << "Inclide autoclicker v1.1" << std::endl;
+	std::cout << "Inclide autoclicker v1.2" << std::endl;
 	if (bState) {
 		std::cout << "Status ON" << std::endl;
 	}
-	else
-	{
+	else {
 		std::cout << "Status OFF" << std::endl;
 	}
 	
@@ -21,7 +28,7 @@ void menu(bool bState) { // Console INFO
 void activate() {
 	while (true)
 	{
-		if (GetAsyncKeyState(0x46) & 1) { // Button: F
+		if (GetAsyncKeyState(kolb) & 1) { // Button: F
 			bState = !bState;
 			menu(bState);
 		}
@@ -41,15 +48,11 @@ void activate() {
 		}
 		if (bState && press == 'y')
 		{
-			if (choice == 'l')
-			{
+			if (choice == 'l') {
 				mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-				
 			}
-			if (choice == 'r')
-			{
+			if (choice == 'r') {
 				mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
-				Sleep(5000);
 			}
 			
 		}
@@ -74,9 +77,25 @@ char cho() {
 	return choice;
 }
 
+char switched() {
+	system("cls");
+	std::cout << "Enter the activate button (V or F): ";
+	std::cin >> kol;
+	return kol;
+}
+
 int main() {
+	switched();
+	switch (kol)
+	{
+	case 'F':
+		kolb = 0x46;
+	case 'V':
+		kolb = 0x56;
+	}
+	std::cout << kolb << std::endl;
+
 	cho();
-	
 
 	if (choice == 'r' || choice == 'l')
 	{
@@ -86,11 +105,19 @@ int main() {
 			menu(bState);
 			activate();
 		}
+		else
+		{
+			system("cls");
+			Beep(370, 2000);
+			std::cout << "Restart the program and enter valid arguments" << std::endl;
+		}
 
 	}
 	else
 	{
-		cho();
+		system("cls");
+		Beep(370, 2000);
+		std::cout << "Restart the program and enter valid arguments" << std::endl;
 	}
 
 	return 0;
