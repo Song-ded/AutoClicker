@@ -85,6 +85,7 @@ char switched() {
 }
 
 int main() {
+	/*
 	switched();
 	switch (kol)
 	{
@@ -94,7 +95,7 @@ int main() {
 		kolb = 0x56;
 	}
 	std::cout << kolb << std::endl;
-
+*/
 	cho();
 
 	if (choice == 'r' || choice == 'l')
